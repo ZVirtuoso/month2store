@@ -82,3 +82,5 @@ while True:
         print("你释放了大招，酷毙了！")
     elif get_order == "c":
         cyy.weapons.check()
+
+print("a small change")
