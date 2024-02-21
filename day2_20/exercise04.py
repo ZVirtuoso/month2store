@@ -25,3 +25,6 @@ dict_score = {'张三': 85, '李四': 92, '王五': 78, '赵六': 65}
 
 for key in dict_score:
     print("学生姓名：%s，成绩：%s，等级：%s"%(key, dict_score[key],get_grade(dict_score[key])))
+
+for k,v in dict_score.items():
+    print("学生姓名：%s，成绩：%s，等级：%s"%(k,v,get_grade(v)))
