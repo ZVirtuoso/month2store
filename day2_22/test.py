@@ -1,3 +1,6 @@
+"""
+对链表的一些处理方法：打印，指定位置插入
+"""
 class ListNode:
     def __init__(self, val=None):
         self.val = val
@@ -9,10 +12,11 @@ class LinkedList:
         self.head = None
 
     def print_list(self):
-        """打印链表中的元素"""
-        while self.head:
-            print(self.head.val)
-            self.head = self.head.next
+        """打印链表中的元素,使用临时指针不会改变原链表"""
+        temp = self.head
+        while temp:
+            print(temp.val)
+            temp = temp.next
 
     def insert_beginning(self, val):
         """在链表头部插入节点"""
@@ -54,4 +58,5 @@ e2.next = e3
 # list.insert_beginning("Sun")
 # list.insert_end("Thursday")
 list.insert("Tuesday_afternoon", 2)
+list.print_list()
 list.print_list()
