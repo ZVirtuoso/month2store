@@ -8,11 +8,20 @@ class BookController:
 
     def delete_book(self, name):
         """删除图书"""
-        target = BookModel(name)
-        if target in self.list_book:
-            self.list_book.remove(target)
+        # target = BookModel(name)
+        try:
+            self.list_book.remove(BookModel(name))
             return True
-        return False
+        except ValueError:
+            return False
+
+        # else:
+        #     #不出错执行
+        #     pass
+        # finally:
+        #     # 不管是否出错执行
+        #     pass
+        #
         # for i in range(len(self.list_book)):
         #    if self.list_book[i].__eq__(参数):
         #        del self.list_book[i]
@@ -27,3 +36,8 @@ class BookController:
                 item.__dict__ = book.__dict__
                 return True
         return False
+
+
+if __name__ == "__main__":
+    controller = BookController()
+    controller.delete_book("大爷")

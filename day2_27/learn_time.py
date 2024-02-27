@@ -29,7 +29,7 @@ print(time.localtime(1709005095.5642927))
 # 时间元组转换为时间戳
 print(time.mktime((2024,6,17,0,0,0,0,0,0)))
 
-# 格式化时间
+# 格式化时间: 时间字符串 和 时间元组 互相转化
 print(time.strftime("%Y-%m-%d %H:%M:%S", tuple_time))
 
 print(time.strptime("2024/6/17","%Y/%m/%d"))

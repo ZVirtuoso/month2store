@@ -1,6 +1,7 @@
 from bll import BookController
 from dtl import BookModel
 
+
 class BookView:
     def __init__(self):
         self.__controller = BookController()
@@ -23,11 +24,19 @@ class BookView:
         elif number == "4":
             self.__update_book()
 
+    def __get_float(self, message):
+        while True:
+            try:
+                result = float(input(message))
+                return result
+            except ValueError:
+                print("数据类型错误，请重新输入数据！")
+
     def __input_book(self):
         """添加图书"""
         book = BookModel(
             input("请输入书名:"),
-            float(input("请输入单价:")),
+            self.__get_float("请输入单价:"),
             input("请输入出版社:")
         )
         self.__controller.add_book(book)
@@ -36,13 +45,13 @@ class BookView:
         """显示所有图书"""
         for item in self.__controller.list_book:
             # print("%s的单价是%s,出版社是%s." % (item.name, item.price, item.publishing))
-            print(item) # 因为打印的是model对象,所以会调用model的__str__方法
+            print(item)  # 因为打印的是model对象,所以会调用model的__str__方法
 
     def __update_book(self):
         while True:
             book = BookModel(
                 input("请输入书名:"),
-                float(input("请输入单价:")),
+                self.__get_float("请输入单价:"),
                 input("请输入出版社:")
             )
             if self.__controller.modify_book(book):
