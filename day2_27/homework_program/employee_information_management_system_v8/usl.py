@@ -57,16 +57,18 @@ class EmployeeView:
             print("删除失败")
 
     def __update_employee(self):
-        name = input("请输入员工姓名:")
-        if not self.__controller.find(name):
-            print("您输入的员工不存在")
-        else:
-            new_employee = EmployeeModel(
-                name=name,
-                position=input("请输入新的员工职位:"),
-                salary=float(input("请输入新的员工工资:")),
-            )
-            if self.__controller.update_employee(new_employee):
-                print("删除成功")
+        while True:
+            name = input("请输入员工姓名:")
+            if not self.__controller.find(name):
+                print("您输入的员工不存在")
             else:
-                print("删除失败")
+                new_employee = EmployeeModel(
+                    name=name,
+                    position=input("请输入新的员工职位:"),
+                    salary=float(input("请输入新的员工工资:")),
+                )
+                if self.__controller.update_employee(new_employee):
+                    print("删除成功")
+                    break
+                else:
+                    print("删除失败")
