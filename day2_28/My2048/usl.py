@@ -19,7 +19,7 @@ class GameView:
         order = input("请输入您要执行的操作: ")
         if order == "0":
             if input("请再次输入0以结算游戏，否则游戏继续:") == "0":
-                self.controller.game_over()
+                print(f"您主动结束了游戏，您的得分是{self.controller.game_over()}")
                 return False
             else:
                 print("您选择了游戏继续！")
@@ -47,6 +47,7 @@ class GameView:
     def main(self):
         try:
             while True:
+                print("当前分数为{0}".format(self.controller.game_over()))
                 self.__show_board()
                 self.__show_menu()
                 if not self.__select_order():

@@ -13,7 +13,8 @@ class GameController:
                          [0, 0, 0, 0]]
         self.__new_count = 2  # 每次生成新元素的个数
         self.__get_zero_coordinates()  # 获取零元素的坐标，首次运行初始化
-        self.__generate()  # 生成新元素，首次运行初始化
+        for i in range(self.__new_count):
+            self.__generate()  # 生成新元素，首次运行初始化
         self.__steps = 0  # 记录移动步数
 
     def game_over(self):
@@ -65,8 +66,12 @@ class GameController:
         self.__zero_coordinates = result_list
 
     def __generate(self):
-        for i in range(0, self.__new_count):
-            random_number = random.randint(0, len(self.__zero_coordinates)-1)#在生成新元素时
+        if len(self.__zero_coordinates) == 1:  # 只剩一个0时在此位置生成新的数，避免random.randint(0,0)报错
+            self.__matrix[self.__zero_coordinates[0][0]][
+                self.__zero_coordinates[0][1]] = random.randint(1, 2) * 2
+            self.__get_zero_coordinates()
+        else:
+            random_number = random.randint(0, len(self.__zero_coordinates) - 1)  # 不止一个0随机选取位置生成新元素...
             self.__matrix[self.__zero_coordinates[random_number][0]][
                 self.__zero_coordinates[random_number][1]] = random.randint(1, 2) * 2
             self.__get_zero_coordinates()
@@ -101,16 +106,15 @@ class GameController:
         """
         每次向指定方向移动零、合并相同元素后的处理：
         1.更新零的坐标
-        2.检测游戏是否结束
-            3.移动统计增加
-            4.生成新的元素
+        2.移动统计增加
+        3.生成新的元素,每生成一次检测游戏是否结束
         """
         self.__get_zero_coordinates()
-        if not self.__check_game_over():
-            self.__steps += 1
+        self.__steps += 1
+        for i in range(self.__new_count):
             self.__generate()
-        else:
-            raise GameOverException
+            if self.__check_game_over():
+                raise GameOverException()
 
     def __check_game_over(self):
         if len(self.__zero_coordinates) == 0:
