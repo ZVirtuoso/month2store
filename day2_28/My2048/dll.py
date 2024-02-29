@@ -66,10 +66,12 @@ class GameController:
         self.__zero_coordinates = result_list
 
     def __generate(self):
+        if len(self.__zero_coordinates) == 0:
+            return
         if len(self.__zero_coordinates) == 1:  # 只剩一个0时在此位置生成新的数，避免random.randint(0,0)报错
             self.__matrix[self.__zero_coordinates[0][0]][
                 self.__zero_coordinates[0][1]] = random.randint(1, 2) * 2
-            self.__get_zero_coordinates()
+            self.__zero_coordinates = []
         else:
             random_number = random.randint(0, len(self.__zero_coordinates) - 1)  # 不止一个0随机选取位置生成新元素...
             self.__matrix[self.__zero_coordinates[random_number][0]][
@@ -117,5 +119,25 @@ class GameController:
                 raise GameOverException()
 
     def __check_game_over(self):
-        if len(self.__zero_coordinates) == 0:
-            return True
+        return not self.__check_line_same() and not self.__check_row_same() and len(self.__zero_coordinates) == 0
+
+    def __check_line_same(self):
+        for line in self.__matrix:
+            for i in range(len(line) - 1):
+                if line[i] == line[i + 1]:
+                    return True
+        return False
+
+    def __check_row_same(self):
+        for i in range(len(self.__matrix[0]) - 1):
+            for j in range(len(self.__matrix[0])):
+                if self.__matrix[i][j] == self.__matrix[i + 1][j]:
+                    return True
+        return False
+
+        # self.__transpose()
+        # if self.__check_line_same():
+        #     self.__transpose()
+        #     return True
+        # self.__transpose()
+        # return False
