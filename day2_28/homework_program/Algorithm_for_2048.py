@@ -18,6 +18,7 @@ list_merge = [2,0,0,2]
 
 def move_zero(list_merge):
     # 定义函数,将零元素移至末尾,即向左滑
+    # 使用负的索引需要从左往右删，删掉的0
     for i in range(-1, -len(list_merge) - 1, -1):
         if list_merge[i] == 0:
             del list_merge[i]
@@ -25,7 +26,7 @@ def move_zero(list_merge):
     return True
 
 
-list_merge = [0, 4, 0, 2]
+list_merge = [4, 0, 0, 2]
 move_zero(list_merge)
 print(list_merge)
 
