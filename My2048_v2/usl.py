@@ -79,3 +79,4 @@ class GameView:
         except GameOverException:
             self.__show_board()
             print(f"游戏结束！你的得分是{self.controller.game_over()}")
+        exit()

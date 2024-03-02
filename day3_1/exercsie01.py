@@ -1,6 +1,3 @@
-from iterable_tools import IterableHelper
-
-
 class Employee:
     def __init__(self, eid, did, name, money):
         self.eid = eid  # 员工编号
