@@ -7,6 +7,7 @@ from dll import *
 class GameView:
     def __init__(self):
         self.controller = GameController()
+        self.new_zero_co = []
 
     @staticmethod
     def __show_menu():
@@ -27,23 +28,41 @@ class GameView:
                 return True
         else:
             if order == "4":
-                self.controller.left()
+                self.new_zero_co = self.controller.left()
             elif order == "6":
-                self.controller.right()
+                self.new_zero_co = self.controller.right()
             elif order == "8":
-                self.controller.up()
+                self.new_zero_co = self.controller.up()
             elif order == "2":
-                self.controller.down()
+                self.new_zero_co = self.controller.down()
             else:
                 print("请输入正确的操作！")
             return True
 
+    # def __show_board(self):
+    #     board_matrix = self.controller.get_board()
+    #     for i in range(4):
+    #         for j in range(4):
+    #             if (i,j) in self.new_zero_co:
+    #                 print(f"<{board_matrix[i][j]}>", end=' ')
+    #             else:
+    #                 print(board_matrix[i][j], end=' ')
+    #         print()
+    #     self.new_zero_co = []
     def __show_board(self):
         board_matrix = self.controller.get_board()
+        s_matrix = [[str(x) for x in row] for row in board_matrix]
         for i in range(4):
+            print("+------+------+------+------+")
+            print("|",end ='')
             for j in range(4):
-                print(board_matrix[i][j], end=' ')
+                if (i,j) in self.new_zero_co:
+                    print(f"<{s_matrix[i][j]}>".center(6,' '), end='|')
+                else:
+                    print(s_matrix[i][j].center(6,' '), end='|')
             print()
+        print("+------+------+------+------+")
+        self.new_zero_co = []
 
     def main(self):
         try:

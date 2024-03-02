@@ -15,12 +15,14 @@ class GameController:
                          [0, 0, 0, 0],
                          [0, 0, 0, 0],
                          [0, 0, 0, 0]]
-        self.__new_count = 3  # 每次生成新元素的个数
+        self.__new_count = 1  # 每次生成新元素的个数
         self.__get_zero_coordinates()  # 获取零元素的坐标，首次运行初始化
+        self.__new_zero_co = []  # 存储新生成的零元素坐标
         for i in range(self.__new_count):
             self.__generate()  # 生成新元素，首次运行初始化
         self.__steps = 0  # 记录移动步数
         self.__last_matrix = [item[:] for item in self.__matrix]  # 记录上一次的矩阵，用于判断是否移动过
+
 
     def game_over(self):
         """游戏结算"""
@@ -34,6 +36,7 @@ class GameController:
         self.__move_zero()
         self.__combine_same()
         self.__step_progress()
+        return self.__new_zero_co
 
     def right(self):
         self.__reverse()
@@ -41,6 +44,7 @@ class GameController:
         self.__combine_same()
         self.__reverse()
         self.__step_progress()
+        return self.__new_zero_co
 
     def up(self):
         self.__transpose()
@@ -48,6 +52,7 @@ class GameController:
         self.__combine_same()
         self.__transpose()
         self.__step_progress()
+        return self.__new_zero_co
 
     def down(self):
         self.__transpose()
@@ -57,6 +62,7 @@ class GameController:
         self.__reverse()
         self.__transpose()
         self.__step_progress()
+        return self.__new_zero_co
 
     def get_board(self):
         return self.__matrix
@@ -71,9 +77,11 @@ class GameController:
         self.__zero_coordinates = result_list
 
     def __generate(self):
+
         if len(self.__zero_coordinates) == 0:
             return
         if len(self.__zero_coordinates) == 1:  # 只剩一个0时在此位置生成新的数，避免random.randint(0,0)报错
+            self.__new_zero_co.append(self.__zero_coordinates[0])
             self.__matrix[self.__zero_coordinates[0][0]][
                 self.__zero_coordinates[0][1]] = random.randint(1, 2) * 2
             self.__zero_coordinates = []
@@ -81,7 +89,8 @@ class GameController:
             random_number = random.randint(0, len(self.__zero_coordinates) - 1)  # 不止一个0随机选取位置生成新元素...
             self.__matrix[self.__zero_coordinates[random_number][0]][
                 self.__zero_coordinates[random_number][1]] = random.randint(1, 2) * 2
-            self.__get_zero_coordinates()
+            self.__new_zero_co.append(self.__zero_coordinates[random_number])  # 存储新生成的零元素坐标
+            del self.__zero_coordinates[random_number] # 移除已生成的零元素坐标
 
     def __transpose(self):
         # 矩阵转置
@@ -115,6 +124,7 @@ class GameController:
         0.判断是否移动过
         1.更新零的坐标
         2.移动统计增加
+        2.1 清除新生成元素的坐标
         3.生成新的元素,每生成一次检测游戏是否结束
         """
         if self.__last_matrix == self.__matrix:
@@ -122,11 +132,13 @@ class GameController:
         else:
             self.__get_zero_coordinates()
             self.__steps += 1
+            self.__new_zero_co = []
             for i in range(self.__new_count):
                 self.__generate()
                 if self.__check_game_over():
                     raise GameOverException()
             self.__last_matrix = [item[:] for item in self.__matrix]  # 更新上一次的矩阵，用于判断是否移动过
+
     def __check_game_over(self):
         return not self.__check_line_same() and not self.__check_row_same() and len(self.__zero_coordinates) == 0
 
