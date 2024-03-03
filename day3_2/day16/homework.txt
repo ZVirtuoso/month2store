@@ -1,0 +1,48 @@
+作业
+1. 当天练习独立完成
+2. 使用内置高阶函数实现下列功能：
+      class BookModel:
+        def __init__(self, name="", price=0.0, publishing=""):
+            self.name = name
+            self.price = price
+            self.publishing = publishing
+
+      list_book = [
+          BookModel("Python", 56.0, "铁道部出版社"),
+          BookModel("Java", 47.0, "清华大学出版社"),
+          BookModel("C++", 66.0, "清华大学出版社"),
+          BookModel("C", 32.0, "铁道出版社"),
+          BookModel("JavaScript", 40.0, "清华大学出版社"),
+      ]
+      2.1获取列表中所有图书的名称
+      2.2获取列表中价格大于50元的图书
+      2.3获取名称为“JavaScript”的图书
+
+
+      class RestaurantModel: # 餐厅
+        def __init__(self, name="", remark=0, city="北京", money=0.0):
+            self.name = name
+            self.remark = remark
+            self.city = city
+            self.money = money
+
+      list_restaurant = [
+            RestaurantModel("北京饭店", 4, "北京", 132),
+            RestaurantModel("上海饭店", 3, "上海", 142),
+            RestaurantModel("南京饭店", 2, "南京", 121),
+            RestaurantModel("苏州饭店", 0, "苏州", 96),
+            RestaurantModel("广州饭店", 6, "苏州", 100),
+      ]
+      2.4获取列表中所有餐厅的名称与人均消费
+      2.5获取列表中点评人数不为0的餐厅
+      2.6获取名称为“上海饭店”的餐厅
+3. 为IterableHelper增加新功能:判断容器中是否包含重复元素
+    需求：
+        定义函数，判断餐厅列表中是否包含相同名称的餐厅name
+        定义函数，判断餐厅列表中是否包含相同城市的餐厅city
+        步骤：
+           -- 根据需求，写出函数。
+           -- 因为主体逻辑相同,核心算法不同.
+              所以使用函数式编程思想(分、隔、做)
+              创建通用函数
+           -- 在当前模块中调用

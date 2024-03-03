@@ -1,3 +1,6 @@
+from iterable_tools import IterableHelper as I
+
+
 class Employee:
     def __init__(self, eid, did, name, money):
         self.eid = eid  # 员工编号
@@ -10,9 +13,11 @@ class Employee:
 
 
 list_employees = [
-    Employee(1001, 9002, "师父", 60000),
+    Employee(1001, 9002, "师父", 30000),
     Employee(1002, 9001, "孙悟空", 50000),
-    Employee(1003, 9002, "沙僧", 20000),
+    Employee(1003, 9002, "八戒", 20000),
     Employee(1004, 9001, "沙僧", 30000),
-    Employee(1005, 9001, "沙僧", 15000),
+    Employee(1005, 9001, "小白龙", 15000),
 ]
+
+print(I.get_max(list_employees, lambda x: x.money))

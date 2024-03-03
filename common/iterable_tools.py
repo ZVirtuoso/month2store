@@ -84,19 +84,61 @@ class IterableHelper:
     def get_max(iterable, handler):
         """
             获取可迭代对象处理过后的最大值
+            可迭代对象包括生成器
+            传入空可迭代对象比如[]会raise StopIteration
+
+            max_value获取第一个元素
+            后续比较循环从第二个元素开始
         """
-        max_value = float("-inf")
-        for item in iterable:
-            if handler(item) > handler(max_value):
-                max_value = item
+        """
+            for限用于默认容器和生成器，他们的__iter__()返回的迭代器对象仍是可迭代对象
+            但对自定义可迭代对象不适用for，只能从第一个开始比较
+
+            使用while可以避免这一问题，对三类可迭代对象均适用，且均从第二个目标开始比较。
+        """
+        iterator = iterable.__iter__()
+        max_value = iterator.__next__()
+        while True:
+            try:
+                item = iterator.__next__()
+                if handler(item) > handler(max_value):
+                    max_value = item
+            except StopIteration:
+                break
         return max_value
+
     @staticmethod
     def get_min(iterable, handler):
         """
             获取可迭代对象处理过后的最小值
+            可迭代对象包括生成器
+            传入空可迭代对象比如[]会raise StopIteration
+
+            max_value获取第一个元素
+            后续比较循环从第二个元素开始
         """
-        min_value = float("inf")
-        for item in iterable:
-            if handler(item) < handler(min_value):
-                min_value = item
+        """
+            for限用于默认容器和生成器，他们的__iter__()返回的迭代器对象仍是可迭代对象
+            但对自定义可迭代对象不适用for，只能从第一个开始比较
+
+            使用while可以避免这一问题，对三类可迭代对象均适用，且均从第二个目标开始比较。
+        """
+        iterator = iterable.__iter__()
+        min_value = iterator.__next__()
+        while True:
+            try:
+                item = iterator.__next__()
+                if handler(item) < handler(min_value):
+                    min_value = item
+            except StopIteration:
+                break
         return min_value
+
+    @staticmethod
+    def ascending_order(iterable, handler):
+        """
+            对可迭代对象进行升序排序
+        """
+        # new_iterable = isinstance(iterable)()
+        # while True:
+        #     iterable_t.__dict__() = iterable.__dict__
