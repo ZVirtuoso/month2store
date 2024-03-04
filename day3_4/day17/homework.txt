@@ -1,0 +1,35 @@
+作业
+1. 当天练习独立完成
+2. 为IterableHelper增加新功能:删除满足条件的所有元素
+    需求：
+        定义函数，在餐厅列表，删除所有城市是"苏州"的餐厅
+        定义函数，在餐厅列表，删除所有名称是"南京饭店"的餐厅
+        步骤：
+           -- 根据需求，写出函数。
+           -- 因为主体逻辑相同,核心算法不同.
+              所以使用函数式编程思想(分、隔、做)
+              创建通用函数delete_all
+           -- 在当前模块中调用
+class RestaurantModel: # 餐厅
+        def __init__(self, name="", remark=0, city="北京", money=0.0):
+            self.name = name
+            self.remark = remark
+            self.city = city
+            self.money = money
+
+      list_restaurant = [
+            RestaurantModel("北京饭店", 4, "北京", 132),
+            RestaurantModel("南京饭店", 3, "上海", 142),
+            RestaurantModel("南京饭店", 2, "南京", 121),
+            RestaurantModel("苏州饭店", 0, "苏州", 96),
+            RestaurantModel("广州饭店", 6, "苏州", 100),
+      ]
+3. 实现game2048面向对象版本
+    将day16/homework/game2048.py算法，定义到bll模块的GameController类中
+    创建到usl模块GameView类，根据输入(wsad键)移动地图并显示
+        for line in list_map:
+            for item in line:
+                print(item,end = "\t")
+            print()
+
+4. 看第一阶段面试题

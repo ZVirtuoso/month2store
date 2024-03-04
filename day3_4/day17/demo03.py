@@ -22,7 +22,6 @@ old_func()
 old_func()
 """
 
-
 """
 def new_func(func):
     print("新功能")
@@ -43,8 +42,10 @@ old_func()
 def new_func(func):
     def wrapper():
         print("新功能")
-        func() #  执行旧功能
+        func()  # 执行旧功能
+
     return wrapper
+
 
 def old_func():
     print("旧功能")
@@ -52,6 +53,6 @@ def old_func():
 
 old_func = new_func(old_func)
 
-old_func() # 拦截：调用内函数,而非调用旧功能
+old_func()  # 拦截：调用内函数,而非调用旧功能
 old_func()
 old_func()

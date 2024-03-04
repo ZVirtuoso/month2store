@@ -1,3 +1,5 @@
+from PyQt5 import Qt
+
 class RestaurantModel:  # 餐厅
     def __init__(self, name="", remark=0, city="北京", money=0.0):
         self.name = name
