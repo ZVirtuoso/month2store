@@ -1,0 +1,4 @@
+EpidemicModel("北京", 2, 300)
+EpidemicModel("上海", 5, 500)
+EpidemicModel("天津", 7, 230)
+EpidemicModel("重庆", 1, 137)
