@@ -135,10 +135,15 @@ class IterableHelper:
         return min_value
 
     @staticmethod
-    def ascending_order(iterable, handler):
+    def ascending_order(iterable, handler=lambda item: item, reverse=False):
         """
             对可迭代对象进行升序排序
         """
-        # new_iterable = isinstance(iterable)()
-        # while True:
-        #     iterable_t.__dict__() = iterable.__dict__
+        result = list(iterable)  # type: list
+        for l_index in range(len(result) - 1):
+            for r_index in range(l_index + 1, len(result)):
+                if handler(result[l_index]) > handler(result[r_index]):
+                    result[l_index], result[r_index] = result[r_index], result[l_index]
+        if reverse:
+            result.reverse()
+        return result
