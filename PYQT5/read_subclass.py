@@ -26,25 +26,15 @@ class Tree:
     #     return indexes + '->' + sons
 
     def get_str(self, reindent: int = -1):
-
         sons_str_list = []
-        # if self.lay == 0:
-        #     if len(self.branches):
-        #         for son in self.branches:
-        #             sons_str_list.append(son.get_str(0))
-        if reindent == -1:
-            if len(self.branches):
-                for son in self.branches:
-                    sons_str_list.append(son.get_str(self.indent))
-        else:
-            if len(self.branches):
-                for son in self.branches:
-                    sons_str_list.append(son.get_str(reindent))
+        if len(self.branches):
+            for son in self.branches:
+                sons_str_list.append(son.get_str(self.indent if reindent == -1 else reindent))
 
-        indexes = self.get_index()
-        sons = f'[{('\n' + ' ' * (self.branches[0].indent - ((reindent+1+self.indent) if reindent == -1 else reindent))).join(sons_str_list)}]' if len(
+        minus_count = (reindent + 1 + self.indent) if reindent == -1 else reindent
+        sons = f'[{('\n' + ' ' * (self.branches[0].indent - minus_count)).join(sons_str_list)}]' if len(
             self.branches) else 'empty'
-        return indexes + '->' + sons
+        return self.get_index() + '->' + sons
 
     def __str__(self):
         return self.get_str()
@@ -129,7 +119,7 @@ def get_subclass(cls: type, layer: int = 0):
 
 if __name__ == '__main__':
     tree = Tree()
-    tree.appends(3,3,3,3)
+    tree.appends(3, 3, 3, 3)
     # for item in tree:
     #     item.append(3)
     print(tree)
