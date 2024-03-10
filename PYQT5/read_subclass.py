@@ -41,7 +41,13 @@ class Tree:
             self.branches) else 'empty'
         return indexes + '->' + sons
     def __str__(self):
-        return self.get_str()
+        indexes = self.get_index()
+        son_str_list = list(map(str, self.branches))
+        son_str = "\n".join(son_str_list)
+        son_str_list = son_str.split("\n")
+        son_str = f'[{("\n" + ' ' * (len(self.get_index()) + 3)).join(son_str_list)}]'if len(
+            self.branches) else 'empty'
+        return indexes + '->' + son_str
 
 
     # @staticmethod
@@ -129,9 +135,9 @@ def get_subclass(cls: type, layer: int = 0):
 
 if __name__ == '__main__':
     tree = Tree()
-    tree.appends(2,1,2,3)
-    # for item in tree:
-    #     item.append(3)
-    print(tree)
+    tree.appends(3,3,3)
+    # # for item in tree:
+    # #     item.append(3)
+    # print(tree)
     # print(tree[1][0][1])
-    # print(tree[2][1])
+    print(tree[1])
